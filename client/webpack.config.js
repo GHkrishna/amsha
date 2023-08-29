@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
+//Added later
+const Dotenv = require('dotenv-webpack');
 
 const extensions = [".js", ".jsx"];
 
@@ -37,6 +39,8 @@ module.exports = {
     ],
   },
   plugins: [
+    //Added later
+    new Dotenv(),
     new EslintWebpackPlugin({ extensions }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
