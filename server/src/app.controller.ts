@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query, BadRequestException } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -13,7 +13,13 @@ export class AppController {
   }
 
   @Get('/api/getNft')
-  getHello(): Promise<String> {
-    return this.appService.getHello();
+  getNFT(@Query('chainId') chainId: string, @Query('accountAddress') accountAddress: string): Promise<String> {
+
+    // Check if both chainId and accountAddress are provided and meet any validation criteria
+    if (!chainId || !accountAddress) {
+      throw new BadRequestException('Both chainId and accountAddress are required.');
+    }
+
+    return this.appService.getNFT(chainId, accountAddress);
   }
 }

@@ -5,14 +5,15 @@ import { catchError, firstValueFrom } from 'rxjs';
 export class AppService {
   constructor(private readonly http: HttpService) {}
 
-  async getHello(): Promise<string> {
+  async getNFT(chainId: String, accountAddress: String): Promise<string> {
+
+    const _chainId = chainId.toString();
+    const _accountAddress = accountAddress.toString();
     const getData = async (): Promise<any> => {
-      const chain = process.env.TEMP_VARIABLE_CHAIN_ID;
-      const address = process.env.TEMP_VARIABLE_ACCOUNT_ADDRESS;
       try {
         const response = await this.http
           .get(
-            `https://testnets-api.opensea.io/v2/chain/${chain}/account/${address}/nfts`,
+            `https://testnets-api.opensea.io/v2/chain/${_chainId}/account/${_accountAddress}/nfts`,
           )
           .toPromise();
 
